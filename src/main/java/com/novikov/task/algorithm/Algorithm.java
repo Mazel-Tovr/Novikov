@@ -1,21 +1,17 @@
 package com.novikov.task.algorithm;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Algorithm
 {
     private char[][] wordsArray;
-    private boolean[][] usedField;
+    private boolean[][] usedLetters;
     private char[] word;
-    private Step startPosition = new Step(-1,-1);
 
     public Algorithm(char[][] wordsArray,char[] word)
     {
         this.word = word;
         this.wordsArray = wordsArray;
-        usedField = new boolean[wordsArray.length][wordsArray[0].length];//stolbccbl ,stroki
+        usedLetters = new boolean[wordsArray.length][wordsArray[0].length];//stolbccbl ,stroki
     }
 
 
@@ -24,11 +20,13 @@ public class Algorithm
     {
         while (true)
         {
-            Step currentPosition = findLetter(startPosition);
+            boolean[][] usedField = new boolean[wordsArray.length][wordsArray[0].length];
+            Step currentPosition = findLetter();
             if (currentPosition == null)
             {
                 return false;
             }
+            usedLetters[currentPosition.getI()][currentPosition.getJ()] = true;
             usedField[currentPosition.getI()][currentPosition.getJ()] = true;
             if(findSolution(currentPosition, wordsArray, usedField, word, 1))
             {
@@ -56,15 +54,15 @@ public class Algorithm
         return false;
     }
 
-    private Step findLetter(Step step)
+    private Step findLetter()
     {
+
         for (int i = 0; i < wordsArray.length ; i++)
         {
             for (int j = 0; j < wordsArray[0].length ; j++)
             {
-                if(wordsArray[i][j] == (word[0]) && (i != step.getI() || j != step.getJ()))
+                if(wordsArray[i][j] == (word[0]) && !usedLetters[i][j])
                 {
-                    step.setI(i);step.setJ(j);
                     return new Step(i,j);
                 }
             }
