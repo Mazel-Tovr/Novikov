@@ -18,7 +18,7 @@ public class App
         char[][] array = {{'A','E','D'},
                           {'B','J','B'},
                           {'A','B','C'}};
-        String word ="ABC";
+        String word ="JBE";
         Algorithm algorithm = new Algorithm(array,word.toCharArray());
         System.out.println( algorithm.isExist());
     }

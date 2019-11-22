@@ -49,7 +49,7 @@ public class AppTest
         char[][] array = {{'A','E','D'},
                           {'B','J','B'},
                           {'A','B','C'}};
-        String word ="ABC";
+        String word ="JBDE";
         Algorithm algorithm = new Algorithm(array,word.toCharArray());
         assertTrue(algorithm.isExist());
     }
